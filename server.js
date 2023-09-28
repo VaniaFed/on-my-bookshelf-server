@@ -1,4 +1,5 @@
 // JSON Server module
+const cors = require("cors");
 const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
@@ -10,7 +11,7 @@ server.use(middlewares);
 
 server.use(router);
 
-app.use(
+server.use(
   cors({
     origin: "https://on-my-bookshelf.vercel.app",
   })
