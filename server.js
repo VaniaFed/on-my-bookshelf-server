@@ -13,13 +13,20 @@ const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 
-server.use(router);
-
 server.use(
   cors({
     origin: "https://on-my-bookshelf.vercel.app",
   })
 );
+
+server.use(
+  jsonServer.rewriter({
+    "/*": "/$1",
+    "/books/:resource/:id/show": "/:resource/:id",
+  })
+);
+
+server.use(router);
 
 server.listen(3001, () => {
   console.log("JSON Server is running");
